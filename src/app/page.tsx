@@ -1,8 +1,14 @@
+"use client";
 import ListItem from "@/components/ListItem";
+import { AddJobModal } from "@/components/Modal";
+import { useSearchParams } from "next/navigation";
 
-export default async function Home() {
-  const data = await fetch(process.env.API_URL + "/api/jobs");
-  const jobs = await data.json()
+export default function Home() {
+  // const data = await fetch("/api/jobs");
+  // const jobs = await data.json()
+
+  const searchParams = useSearchParams();
+  const show = searchParams.get("add") === "true";
 
   return (
     <div className="flex flex-col items-center justify-center m-8">
@@ -16,11 +22,12 @@ export default async function Home() {
           </tr>
         </thead>
         <tbody>
-          {jobs.map((job: any, index: number) => (
+          {/* {jobs.map((job: any, index: number) => (
             <ListItem key={index} details={job} />
-          ))}
+          ))} */}
         </tbody>
       </table>
+      {show && <AddJobModal />}
     </div>
   );
 }
