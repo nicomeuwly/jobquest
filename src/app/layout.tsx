@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
+import JobsProvider from "@/contexts/jobsProvider";
 
 export const metadata: Metadata = {
   title: "JobQuest 🔍",
@@ -15,8 +16,10 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body>
-        <Header />
-        {children}
+        <JobsProvider>
+          <Header />
+          {children}
+        </JobsProvider>
       </body>
     </html>
   );

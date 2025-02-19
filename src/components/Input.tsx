@@ -1,12 +1,32 @@
-interface InputProps {
+"use client";
+import { useState } from "react";
+
+type InputProps = {
     placeholder: string;
     type: string;
     required: boolean;
     colSpan?: number;
+    value?: string | number;
 }
 
-export default function InputElement({ placeholder, type, required, colSpan }: InputProps) {
+export default function InputElement({ placeholder, type, required, colSpan, value }: InputProps) {
+    const [inputValue, setInputValue] = useState(value || "");
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setInputValue(event.target.value);
+    };
+
+    const name = placeholder
+        .toLowerCase() // Convertit en minuscules
+        .normalize("NFD") // Décompose les caractères accentués
+        .replace(/[\u0300-\u036f]/g, "") // Supprime les accents
+        .replace(/\s+/g, "_") // Remplace les espaces par des underscores
+        .replace(/[^a-z0-9_]/g, ""); // Supprime tout sauf lettres, chiffres et underscores
+
     return (
-        <input className={"px-4 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-gray-500 focus:border-gray-500 hover:bg-gray-50 " + (colSpan ? `col-span-${colSpan}` : null)} type={type} placeholder={placeholder} required={required} />
+        <div className={"relative" + (colSpan ? ` col-span-${colSpan}` : "")}>
+            <input type={type} id="floating_outlined" className={"block px-2.5 pb-2.5 pt-4 w-full bg-transparent rounded-lg border-1 border-gray-500 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer hover:bg-gray-50 " + (inputValue ? "text-black" : "text-gray-500")} placeholder=" " name={name} required={required} defaultValue={value} />
+            <label htmlFor="floating_outlined" className={"absolute text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:bg-white peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1 " + (inputValue ? "bg-white" : "")}>{placeholder}</label>
+        </div>
     );
 }
