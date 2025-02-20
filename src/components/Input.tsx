@@ -7,21 +7,15 @@ type InputProps = {
     required: boolean;
     colSpan?: number;
     value?: string | number;
+    name?: string;
 }
 
-export default function InputElement({ placeholder, type, required, colSpan, value }: InputProps) {
+export default function InputElement({ placeholder, type, required, colSpan, value, name }: InputProps) {
     const [inputValue, setInputValue] = useState(value || "");
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(event.target.value);
     };
-
-    const name = placeholder
-        .toLowerCase() // Convertit en minuscules
-        .normalize("NFD") // Décompose les caractères accentués
-        .replace(/[\u0300-\u036f]/g, "") // Supprime les accents
-        .replace(/\s+/g, "_") // Remplace les espaces par des underscores
-        .replace(/[^a-z0-9_]/g, ""); // Supprime tout sauf lettres, chiffres et underscores
 
     return (
         <div className={"relative" + (colSpan ? ` col-span-${colSpan}` : "")}>

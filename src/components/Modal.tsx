@@ -16,12 +16,12 @@ export function AddJobModal() {
             <div className="xl:w-1/3 md:w-1/2 w-full md:h-fit h-full bg-white p-8 rounded-lg shadow-lg">
                 <h1 className="font-bold mb-8 w-full text-center">Ajouter un poste</h1>
                 <form className="grid grid-cols-2 gap-4" onSubmit={(event) => createJob(event, setUpdates, updates, router)}>
-                    <InputElement placeholder="Nom du poste" type="text" required={true} colSpan={2} />
-                    <InputElement placeholder="Entreprise" type="text" required={true} colSpan={1} />
-                    <InputElement placeholder="Localité" type="text" required={true} colSpan={1} />
-                    <InputElement placeholder="Taux" type="text" required={true} colSpan={1} />
-                    <InputElement placeholder="Contrat" type="text" required={true} colSpan={1} />
-                    <InputElement placeholder="Lien de l'offre" type="text" required={true} colSpan={2} />
+                    <InputElement placeholder="Nom du poste" type="text" required={true} colSpan={2} name="title" />
+                    <InputElement placeholder="Entreprise" type="text" required={true} colSpan={1} name="company" />
+                    <InputElement placeholder="Localité" type="text" required={true} colSpan={1} name="location" />
+                    <InputElement placeholder="Taux" type="text" required={true} colSpan={1} name="rate" />
+                    <InputElement placeholder="Contrat" type="text" required={true} colSpan={1} name="contract" />
+                    <InputElement placeholder="Lien de l'offre" type="text" required={true} colSpan={2} name="link" />
                     <div className="col-span-2 flex justify-center gap-4 mt-4">
                         <PrimaryButton text="Ajouter" type="submit" />
                         <SecondaryButton text="Annuler" type="button" onClick={() => router.back()} />
@@ -48,13 +48,13 @@ export function EditJobModal() {
                 <h1 className="font-bold mb-8 w-full text-center">Modifier un poste</h1>
                 {job ?
                     <form className="grid grid-cols-2 gap-4" onSubmit={(event) => updateJob(event, job.id, setUpdates, updates, router)}>
-                        <InputElement placeholder="Nom du poste" type="text" required={true} colSpan={2} value={job.title} />
-                        <InputElement placeholder="Entreprise" type="text" required={true} colSpan={1} value={job.company} />
-                        <InputElement placeholder="Localité" type="text" required={true} colSpan={1} value={job.location} />
-                        <InputElement placeholder="Taux" type="text" required={true} colSpan={1} value={job.rate} />
-                        <InputElement placeholder="Contrat" type="text" required={true} colSpan={1} value={job.contract} />
-                        {job.status > 0 ? <InputElement placeholder="Date d'envoi" type="date" required={true} colSpan={1} value={new Date(job.mailingDate).toISOString().split("T")[0]} /> : null}
-                        <InputElement placeholder="Lien de l'offre" type="text" required={true} colSpan={job.status > 0 ? 1 : 2} value={job.link} />
+                        <InputElement placeholder="Nom du poste" type="text" required={true} colSpan={2} value={job.title} name="title" />
+                        <InputElement placeholder="Entreprise" type="text" required={true} colSpan={1} value={job.company} name="company" />
+                        <InputElement placeholder="Localité" type="text" required={true} colSpan={1} value={job.location} name="location" />
+                        <InputElement placeholder="Taux" type="text" required={true} colSpan={1} value={job.rate} name="rate" />
+                        <InputElement placeholder="Contrat" type="text" required={true} colSpan={1} value={job.contract} name="contract" />
+                        {job.status > 0 ? <InputElement placeholder="Date d'envoi" type="date" required={true} colSpan={1} value={new Date(job.mailingDate).toISOString().split("T")[0]} name="mailingDate" /> : null}
+                        <InputElement placeholder="Lien de l'offre" type="text" required={true} colSpan={job.status > 0 ? 1 : 2} value={job.link} name="link" />
                         <div className="col-span-2 flex justify-center gap-4 mt-4">
                             <PrimaryButton text="Enregistrer" type="submit" />
                             <SecondaryButton text="Annuler" type="button" onClick={() => router.back()} />

@@ -10,7 +10,7 @@ export const createJob = async (
         const formData = new FormData(form);
         const job = Object.fromEntries(formData.entries());
 
-        const response = await fetch("/api/jobs/new", {
+        const response = await fetch("/api/jobs", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(job),
@@ -64,7 +64,7 @@ export const updateJob = async (
 
         console.log(job);
 
-        const response = await fetch(`/api/jobs/edit/${id}`, {
+        const response = await fetch(`/api/jobs/${id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(job),
@@ -105,7 +105,7 @@ export const handleStatusChange = async (
 
         (async () => {
             try {
-                const response = await fetch(`/api/jobs/edit/${prev.id}`, {
+                const response = await fetch(`/api/jobs/${prev.id}`, {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(updatedJob),
@@ -132,7 +132,7 @@ export const handleDeleteItem = async (
     updates: number
 ) => {
     try {
-        const response = await fetch(`/api/jobs/edit/${id}`, {
+        const response = await fetch(`/api/jobs/${id}`, {
             method: "DELETE",
         });
 
