@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 
 export async function GET(request: Request) {
     try {
@@ -28,6 +28,7 @@ export async function POST(request: Request) {
                 status: 0,
                 mailingDate: new Date("1970-01-01"),
                 link: body.link,
+                userId: body.userId,
             }
         });
         return new Response("Job created successfully", { status: 201 });

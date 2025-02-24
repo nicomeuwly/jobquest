@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 
 export async function GET(request: Request) {
     try {
@@ -9,7 +9,7 @@ export async function GET(request: Request) {
         }
         const job = await prisma.job.findUnique({
             where: {
-                id: Number(id)
+                id: id,
             }
         });
         return new Response(JSON.stringify(job), { status: 200 });
@@ -31,7 +31,7 @@ export async function PUT(request: Request) {
     try {
         await prisma.job.update({
             where: {
-                id: parseInt(id),
+                id: id,
             },
             data: {
                 title: body.title,
@@ -62,7 +62,7 @@ export async function DELETE(request: Request) {
     try {
         await prisma.job.delete({
             where: {
-                id: parseInt(id),
+                id: id,
             },
         });
         return new Response("Job deleted successfully", { status: 200 });

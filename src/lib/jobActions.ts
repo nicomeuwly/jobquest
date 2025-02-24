@@ -62,8 +62,6 @@ export const updateJob = async (
         const formData = new FormData(form);
         const job = Object.fromEntries(formData.entries());
 
-        console.log(job);
-
         const response = await fetch(`/api/jobs/${id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
